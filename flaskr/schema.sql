@@ -13,6 +13,7 @@ CREATE TABLE user (
 
 -- test data
 
+INSERT INTO user (id, name, host, port) VALUES (0, "Server0", "localhost", 20000);
 INSERT INTO user (name, host, port) VALUES ("Server1", "localhost", 20001);
 INSERT INTO user (name, x, host, port) VALUES ("Server2", "abcaddf123541", "localhost", 20002);
 INSERT INTO user (name, host, port) VALUES ("Server3", "localhost", 20003);
