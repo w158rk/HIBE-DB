@@ -87,7 +87,7 @@ def get_port(uid):
 
     return error
 
-@bp.route('/pk/<uid>', methods=['GET'])
+@bp.route('/pk/<uid>', methods=['GET', 'POST'])
 def get_pk(uid):
     db = get_db()
     error = None
@@ -95,6 +95,15 @@ def get_pk(uid):
 
     if not uid:
         error = 'uid is required.'
+    elif request.method == 'POST':
+        # wrwite a new pk
+        pk = request.data.decode()
+        r = db.execute(
+            'UPDATE user SET pk=? WHERE id=?', (pk, uid) 
+        )
+        if not r:
+            error = 'error in writing'
+        db.commit()
     else:
         r = db.execute(
             'SELECT pk FROM user WHERE id = ?', (uid,)
