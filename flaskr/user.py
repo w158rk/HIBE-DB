@@ -127,3 +127,27 @@ def get_pk(uid):
         return str(r)
 
     return error
+
+@bp.route('/name/<uid>', methods=['GET'])
+def get_name(uid):
+    db = get_db()
+    error = None
+    r = 0
+
+    if not uid:
+        error = 'uid is required.'
+    else:
+        r = db.execute(
+            'SELECT name FROM user WHERE id = ?', (uid,)
+        ).fetchone() 
+
+        if not r:
+            error = 'uid does not exist in the db'
+        
+        else:
+            r = r['name']
+
+    if error is None:
+        return str(r)
+
+    return error
